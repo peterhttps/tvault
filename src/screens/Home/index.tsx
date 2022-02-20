@@ -1,9 +1,9 @@
+import React from 'react';
 import { StatusBar } from 'expo-status-bar';
-import React, { useState } from 'react';
-import AddButton from '../components/AddButton';
-import PasswordCard from '../components/PasswordCard';
-import { Container, Wrapper } from './styles';
-
+import { Ionicons } from '@expo/vector-icons'; 
+import AddButton from '../../components/AddButton';
+import PasswordCard from '../../components/PasswordCard';
+import { Container, HomeHeader, HomeTitle, SearchContainer, SearchInput, Wrapper } from './styles';
 export default function Home() {
 
   const passwords = [
@@ -24,6 +24,14 @@ export default function Home() {
   return (
     <Wrapper>  
       <Container>
+        <HomeHeader>
+          <HomeTitle>TVault</HomeTitle>
+          <SearchContainer>
+            <SearchInput placeholder='Search' />
+            <Ionicons name="search" size={20} color="#ACABAE" />
+          </SearchContainer>
+        </HomeHeader>
+
         {passwords.map(item => {
           return (
             <PasswordCard key={item.name} name={item.name} password={item.password} />
@@ -31,7 +39,7 @@ export default function Home() {
         })}
       </Container>
  
-      <AddButton />
+      <AddButton/>
       <StatusBar style="auto" />
     </Wrapper>
   );
