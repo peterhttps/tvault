@@ -1,14 +1,21 @@
 import { StatusBar } from 'expo-status-bar';
 import React, { useState } from 'react';
+import AddButton from '../components/AddButton';
 import PasswordCard from '../components/PasswordCard';
-import { Wrapper } from './styles';
+import { Container, Wrapper } from './styles';
 
 export default function Home() {
 
   return (
     <Wrapper>  
-      <PasswordCard />
-      
+      <Container>
+        <PasswordCard />
+        <PasswordCard />
+        <PasswordCard />
+      </Container>
+ 
+
+      <AddButton />
       <StatusBar style="auto" />
     </Wrapper>
   );

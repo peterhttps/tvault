@@ -6,6 +6,7 @@ export const Wrapper = styled.View`
   margin: auto;
   padding: 16px 16px;
   border-radius: 10px;
+  margin-top: 16px;
 `;
 
 export const PasswordCardTitleContainer = styled.View`
