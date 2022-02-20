@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
-import { PasswordCardPass, PasswordCardPassArea, PasswordCardTitleContainer, PasswordCartTitle, Wrapper } from './styles';
+import { PasswordCardEyeButton, PasswordCardPass, PasswordCardPassArea, PasswordCardTitleContainer, PasswordCartTitle, Wrapper } from './styles';
 import { Ionicons } from '@expo/vector-icons';
 import { MaterialCommunityIcons } from '@expo/vector-icons'; 
+import { TouchableOpacity } from 'react-native';
 
 const PasswordCard: React.FC = () => {
 
@@ -20,8 +21,8 @@ const PasswordCard: React.FC = () => {
         : <PasswordCardPass>{'•'.repeat(password.length)}</PasswordCardPass>}
         
         {!seeing 
-        ? <Ionicons name="ios-eye-off-sharp" size={20} color="black" onPress={() => setSeeing(seeing => !seeing)} />
-        : <Ionicons name="ios-eye" size={20} color="black" onPress={() => setSeeing(seeing => !seeing)} />}
+        ? <PasswordCardEyeButton activeOpacity={0.3} onPress={() => setSeeing(seeing => !seeing)}><Ionicons name="ios-eye-off-sharp" size={20} color="black"/></PasswordCardEyeButton>
+        : <PasswordCardEyeButton activeOpacity={0.3} onPress={() => setSeeing(seeing => !seeing)}><Ionicons name="ios-eye" size={20} color="black"/></PasswordCardEyeButton>}
       </PasswordCardPassArea>
     </Wrapper>
   );

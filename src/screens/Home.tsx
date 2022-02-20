@@ -14,7 +14,6 @@ export default function Home() {
         <PasswordCard />
       </Container>
  
-
       <AddButton />
       <StatusBar style="auto" />
     </Wrapper>

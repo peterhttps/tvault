@@ -30,3 +30,10 @@ export const PasswordCardPassArea = styled.View`
   flex-direction: row;
   align-items: center;
 `;
+
+export const PasswordCardEyeButton = styled.TouchableOpacity`
+  width: 30px;
+  height: 20px;
+  align-items: center;
+  justify-content: center;
+`;
