@@ -4,15 +4,18 @@ import { Ionicons } from '@expo/vector-icons';
 import { MaterialCommunityIcons } from '@expo/vector-icons'; 
 import { TouchableOpacity } from 'react-native';
 
-const PasswordCard: React.FC = () => {
+interface IProps {
+  name: string;
+  password: string;
+}
 
+const PasswordCard: React.FC<IProps> = ({ name, password }: IProps) => {
   const [seeing, setSeeing] = useState(false);
-  const [password, setPassword] = useState('123456');
 
   return (
     <Wrapper>
       <PasswordCardTitleContainer>
-        <PasswordCartTitle>Netflix</PasswordCartTitle>
+        <PasswordCartTitle>{name}</PasswordCartTitle>
         <MaterialCommunityIcons name="pencil" size={18} color="black" />
       </PasswordCardTitleContainer>
       <PasswordCardPassArea>

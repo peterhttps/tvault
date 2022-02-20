@@ -6,12 +6,29 @@ import { Container, Wrapper } from './styles';
 
 export default function Home() {
 
+  const passwords = [
+    {
+      name: 'Netflix',
+      password: 'myP4ssw0rd9'
+    },
+    {
+      name: 'Spotify',
+      password: 'Mus1c$$'
+    },
+    {
+      name: 'Facebook',
+      password: 'F4c3b00kT00MuchB1gP4ss'
+    },
+  ]
+
   return (
     <Wrapper>  
       <Container>
-        <PasswordCard />
-        <PasswordCard />
-        <PasswordCard />
+        {passwords.map(item => {
+          return (
+            <PasswordCard key={item.name} name={item.name} password={item.password} />
+          )
+        })}
       </Container>
  
       <AddButton />
