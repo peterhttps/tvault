@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { PasswordCardEyeButton, PasswordCardPass, PasswordCardPassArea, PasswordCardTitleContainer, PasswordCartTitle, Wrapper } from './styles';
 import { Ionicons } from '@expo/vector-icons';
 import { MaterialCommunityIcons } from '@expo/vector-icons'; 
-import { TouchableOpacity } from 'react-native';
 
 interface IProps {
   name: string;
