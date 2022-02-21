@@ -4,19 +4,21 @@ import { Ionicons } from '@expo/vector-icons';
 import { MaterialCommunityIcons } from '@expo/vector-icons'; 
 
 interface IProps {
-  name: string;
+  service: string;
   password: string;
+  user: string;
 }
 
-const PasswordCard: React.FC<IProps> = ({ name, password }: IProps) => {
+const PasswordCard: React.FC<IProps> = ({ service, password, user }: IProps) => {
   const [seeing, setSeeing] = useState(false);
 
   return (
     <Wrapper>
       <PasswordCardTitleContainer>
-        <PasswordCartTitle>{name}</PasswordCartTitle>
+        <PasswordCartTitle>{service}</PasswordCartTitle>
         <MaterialCommunityIcons name="pencil" size={18} color="black" />
       </PasswordCardTitleContainer>
+      <PasswordCardPass>{user}</PasswordCardPass> 
       <PasswordCardPassArea>
         {seeing 
         ? <PasswordCardPass>{password}</PasswordCardPass> 

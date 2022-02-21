@@ -1,11 +1,13 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { Ionicons } from '@expo/vector-icons'; 
 import AddButton from '../../components/AddButton';
 import PasswordCard from '../../components/PasswordCard';
 import { Container, HomeHeader, HomeTitle, SearchContainer, SearchInput, Wrapper } from './styles';
+import { useAccounts } from '../../hooks/useAccounts';
 
 export default function Home() {
+  const { accounts } = useAccounts();
 
   const passwords = [
     {
@@ -33,9 +35,9 @@ export default function Home() {
           </SearchContainer>
         </HomeHeader>
 
-        {passwords.map(item => {
+        {accounts.map(item => {
           return (
-            <PasswordCard key={item.name} name={item.name} password={item.password} />
+            <PasswordCard key={item.id} service={item.service} user={item.user} password={item.password} />
           )
         })}
       </Container>
