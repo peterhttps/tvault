@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { Ionicons } from '@expo/vector-icons'; 
 import AddButton from '../../components/AddButton';
 import PasswordCard from '../../components/PasswordCard';
 import { Container, HomeHeader, HomeTitle, SearchContainer, SearchInput, Wrapper } from './styles';
+
 export default function Home() {
 
   const passwords = [
