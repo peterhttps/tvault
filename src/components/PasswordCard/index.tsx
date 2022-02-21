@@ -1,9 +1,7 @@
 import React, { useState } from 'react';
 import { Ionicons } from '@expo/vector-icons';
-import { MaterialCommunityIcons } from '@expo/vector-icons'; 
 import CryptoJS from "react-native-crypto-js";
 import { PasswordCardEyeButton, PasswordCardPass, PasswordCardPassArea, PasswordCardTitleContainer, PasswordCartTitle, Wrapper } from './styles';
-
 
 interface IProps {
   service: string;
@@ -19,7 +17,7 @@ const PasswordCard: React.FC<IProps> = ({ service, password, user }: IProps) => 
     <Wrapper>
       <PasswordCardTitleContainer>
         <PasswordCartTitle>{service}</PasswordCartTitle>
-        <MaterialCommunityIcons name="pencil" size={18} color="black" />
+        <Ionicons name="ellipsis-vertical" size={16} color="black" />
       </PasswordCardTitleContainer>
       <PasswordCardPass>{user}</PasswordCardPass> 
       <PasswordCardPassArea>
