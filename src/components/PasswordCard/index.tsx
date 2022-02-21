@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
-import { PasswordCardEyeButton, PasswordCardPass, PasswordCardPassArea, PasswordCardTitleContainer, PasswordCartTitle, Wrapper } from './styles';
 import { Ionicons } from '@expo/vector-icons';
 import { MaterialCommunityIcons } from '@expo/vector-icons'; 
+import CryptoJS from "react-native-crypto-js";
+import { PasswordCardEyeButton, PasswordCardPass, PasswordCardPassArea, PasswordCardTitleContainer, PasswordCartTitle, Wrapper } from './styles';
+
 
 interface IProps {
   service: string;
@@ -11,6 +13,7 @@ interface IProps {
 
 const PasswordCard: React.FC<IProps> = ({ service, password, user }: IProps) => {
   const [seeing, setSeeing] = useState(false);
+  const decryptedPassword = CryptoJS.AES.decrypt(password, 'test').toString(CryptoJS.enc.Utf8);
 
   return (
     <Wrapper>
@@ -21,8 +24,8 @@ const PasswordCard: React.FC<IProps> = ({ service, password, user }: IProps) => 
       <PasswordCardPass>{user}</PasswordCardPass> 
       <PasswordCardPassArea>
         {seeing 
-        ? <PasswordCardPass>{password}</PasswordCardPass> 
-        : <PasswordCardPass>{'•'.repeat(password.length)}</PasswordCardPass>}
+        ? <PasswordCardPass>{decryptedPassword}</PasswordCardPass> 
+        : <PasswordCardPass>{'•'.repeat(decryptedPassword.length)}</PasswordCardPass>}
         
         {!seeing 
         ? <PasswordCardEyeButton activeOpacity={0.3} onPress={() => setSeeing(seeing => !seeing)}><Ionicons name="ios-eye-off-sharp" size={20} color="black"/></PasswordCardEyeButton>

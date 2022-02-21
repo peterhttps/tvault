@@ -1,7 +1,9 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import uuid from 'react-native-uuid';
+import CryptoJS from 'react-native-crypto-js';
 import { AccountsStore } from '.';
 import { IAccounts } from '../../interfaces/IAccounts';
+
 
 export const setAccountsStorage = async (accounts: IAccounts[]) => {
   try {
@@ -20,6 +22,7 @@ export const addAccount = (account: IAccounts | null) =>
   AccountsStore.update(s => {
     if (!!account) {
       account.id = uuid.v4() + Date.now().toString();
+      account.password = CryptoJS.AES.encrypt(account.password, 'test');
       s.accounts.push(account)
     };
     setAccountsStorage(s.accounts);
