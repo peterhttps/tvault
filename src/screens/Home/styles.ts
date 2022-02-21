@@ -36,4 +36,5 @@ export const SearchContainer = styled.View`
 export const SearchInput = styled.TextInput`
   font-size: 16px;
   padding: 8px 8px;
+  width: 85%;
 `;
