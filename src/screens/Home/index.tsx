@@ -7,11 +7,18 @@ import { Container, HomeHeader, HomeTitle, SearchContainer, SearchInput, Wrapper
 import { useAccounts } from '../../hooks/useAccounts';
 import { useEffect } from 'react';
 import { IAccounts } from '../../interfaces/IAccounts';
+import { useNavigation } from '@react-navigation/native';
 
 export default function Home() {
+  const navigation = useNavigation();
+
   const { accounts } = useAccounts();
   const [accountsFiltered, setAccountsFiltered] = useState<IAccounts[]>();
   const [searchInput, setSearchInput] = useState('');
+
+  useEffect(() => {
+    navigation.navigate('PasswordLock' as never);
+  }, []);
 
   useEffect(() => {
     if (searchInput === '') {
