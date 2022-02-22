@@ -18,6 +18,16 @@ export const setAccounts = (accounts: IAccounts[]) =>
     s.accounts = accounts;
   });
 
+export const updateAccount = (account: IAccounts | null) =>
+  AccountsStore.update(s => {
+    if (!!account) {
+      const foundIndex = s.accounts.findIndex(x => x.id === account.id);
+      account.password = CryptoJS.AES.encrypt(account.password, 'test');
+      s.accounts[foundIndex] = account;
+    };
+    setAccountsStorage(s.accounts);
+  });
+
 export const addAccount = (account: IAccounts | null) =>
   AccountsStore.update(s => {
     if (!!account) {

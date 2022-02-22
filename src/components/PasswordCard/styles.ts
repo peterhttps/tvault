@@ -16,6 +16,11 @@ export const PasswordCardTitleContainer = styled.View`
   justify-content: space-between;
 `;
 
+export const OptionsButton = styled.TouchableOpacity`
+  border-radius: 10px;
+  padding-left: 16px;
+`;
+
 export const PasswordCartTitle = styled.Text`
   font-weight: bold;
   font-size: 16px;

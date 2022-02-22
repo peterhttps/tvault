@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import Navigation from './navigation/Navigation';
 import { getAccountsStorage, setAccounts } from './store/accounts/actions';
+import { MenuProvider } from 'react-native-popup-menu';
 
 export default function App() {
   useEffect(() => {
@@ -12,7 +13,9 @@ export default function App() {
   }, []);
 
   return (
-    <Navigation />
+    <MenuProvider>
+      <Navigation />
+    </MenuProvider>
   );
 }
 

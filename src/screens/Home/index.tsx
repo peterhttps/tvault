@@ -39,7 +39,7 @@ export default function Home() {
 
         {accountsFiltered?.map(item => {
           return (
-            <PasswordCard key={item.id} service={item.service} user={item.user} password={item.password} />
+            <PasswordCard key={item.id} id={item.id} service={item.service} user={item.user} password={item.password} />
           )
         })}
       </Container>
