@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { Ionicons } from '@expo/vector-icons'; 
 import AddButton from '../../components/AddButton';
@@ -9,6 +9,7 @@ import { useEffect } from 'react';
 import { IAccounts } from '../../interfaces/IAccounts';
 import { useNavigation } from '@react-navigation/native';
 import { useAuthentication } from '../../hooks/useAuthentication';
+import { getPasslockStorage } from '../../store/authentication/actions';
 
 export default function Home() {
   const navigation = useNavigation();
@@ -19,11 +20,20 @@ export default function Home() {
   const [searchInput, setSearchInput] = useState('');
   const [loading, setLoading] = useState(true);
 
+  const getStoragePasslock = useCallback(async () => {
+    const passlock = await getPasslockStorage();
+    if (!!passlock) {
+      navigation.reset({index: 0, routes: [{name: 'PasswordLock' as never}]});
+    } else {
+      navigation.reset({index: 0, routes: [{name: 'PasswordLockSave' as never}]});
+    }
+  }, []);
+
   useEffect(() => {
     if (authentication.isAuthenticated) {
       setLoading(false);
     } else {
-      navigation.navigate('PasswordLock' as never);
+      getStoragePasslock();
     }
   }, []);
 

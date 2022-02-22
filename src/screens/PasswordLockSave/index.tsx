@@ -1,10 +1,8 @@
-import React, { useCallback, useState } from 'react';
-import { ErrorMessage, PassContainer, PassDescription, PassTitle, Wrapper } from './styles';
+import React, { useState, useEffect } from 'react';
+import { PassDescription, PassTitle, Wrapper } from './styles';
 import { Text, StyleSheet, Vibration } from 'react-native';
-// import { Container } from './styles';
-import { useEffect } from 'react';
 import { useNavigation } from '@react-navigation/native';
-import { getPasslockStorage, setAuthentication } from '../../store/authentication/actions';
+import { setAuthentication, setPasslockStorage } from '../../store/authentication/actions';
 
 import {
   CodeField,
@@ -12,6 +10,7 @@ import {
   useBlurOnFulfill,
   useClearByFocusCell,
 } from 'react-native-confirmation-code-field';
+import { SaveButton, SaveButtonText } from '../AddPassword/styles';
 
 const styles = StyleSheet.create({
   root: {flex: 1, padding: 20},
@@ -34,42 +33,26 @@ const styles = StyleSheet.create({
 
 const CELL_COUNT = 6;
 
-const PasswordLock: React.FC = () => {
+const PasswordLockSave: React.FC = () => {
   const navigation = useNavigation();
 
   const [value, setValue] = useState('');
-  const [showError, setShowError] = useState(false);
   const ref = useBlurOnFulfill({value, cellCount: CELL_COUNT});
   const [props, getCellOnLayoutHandler] = useClearByFocusCell({
     value,
     setValue,
   });
 
-  useEffect(() => {
-    verification();
-  }, [value]);
-
-  const verification = useCallback(async () => {
-    const passlock = await getPasslockStorage();
-
-    if (value === passlock) {
-      setAuthentication(true);
-      navigation.reset({index: 0, routes: [{name: 'Home' as never}]});
-      return;
-    } 
-
-    if (value.length === 6 && value !== passlock) {
-      Vibration.vibrate();
-      setShowError(true);
-      setValue('');
-      setShowError(true);
-    }
-  }, [value]);
+  const saveButton = () => {
+    setAuthentication(true);
+    setPasslockStorage(value);
+    navigation.reset({index: 0, routes: [{name: 'Home' as never}]});
+  }
 
   return (
     <Wrapper>
-      <PassTitle>Enter your passcode</PassTitle>
-      <PassDescription>To access your saved accounts, {"\n"}please enter your passcode</PassDescription>
+      <PassTitle>Create a passcode</PassTitle>
+      <PassDescription>To access your saved accounts, {"\n"}please create your passcode</PassDescription>
       <CodeField
         ref={ref}
         {...props}
@@ -89,9 +72,13 @@ const PasswordLock: React.FC = () => {
           </Text>
         )}
       />
-      {showError && <ErrorMessage>Invalid code</ErrorMessage>}
+      <SaveButton underlayColor="#4C656E" activeOpacity={0.9} onPress={saveButton}>
+        <SaveButtonText>
+          Save Passcode
+        </SaveButtonText>
+      </SaveButton>
     </Wrapper>
   );
 }
 
-export default PasswordLock;
+export default PasswordLockSave;
