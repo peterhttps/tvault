@@ -8,16 +8,23 @@ import { useAccounts } from '../../hooks/useAccounts';
 import { useEffect } from 'react';
 import { IAccounts } from '../../interfaces/IAccounts';
 import { useNavigation } from '@react-navigation/native';
+import { useAuthentication } from '../../hooks/useAuthentication';
 
 export default function Home() {
   const navigation = useNavigation();
+  const authentication = useAuthentication();
 
   const { accounts } = useAccounts();
   const [accountsFiltered, setAccountsFiltered] = useState<IAccounts[]>();
   const [searchInput, setSearchInput] = useState('');
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    navigation.navigate('PasswordLock' as never);
+    if (authentication.isAuthenticated) {
+      setLoading(false);
+    } else {
+      navigation.navigate('PasswordLock' as never);
+    }
   }, []);
 
   useEffect(() => {
@@ -32,6 +39,8 @@ export default function Home() {
     }
 
   }, [searchInput, accounts]);
+
+  if (loading) return <></>;
 
   return (
     <Wrapper>  

@@ -3,6 +3,8 @@ import { ErrorMessage, PassContainer, PassDescription, PassTitle, Wrapper } from
 import { Text, StyleSheet, Vibration } from 'react-native';
 // import { Container } from './styles';
 import { useEffect } from 'react';
+import { useNavigation } from '@react-navigation/native';
+import { setAuthentication } from '../../store/authentication/actions';
 
 import {
   CodeField,
@@ -33,6 +35,8 @@ const styles = StyleSheet.create({
 const CELL_COUNT = 6;
 
 const PasswordLock: React.FC = () => {
+  const navigation = useNavigation();
+
   const [value, setValue] = useState('');
   const [showError, setShowError] = useState(false);
   const ref = useBlurOnFulfill({value, cellCount: CELL_COUNT});
@@ -42,9 +46,9 @@ const PasswordLock: React.FC = () => {
   });
 
   useEffect(() => {
-
     if (value === '232323') {
-      Vibration.vibrate();
+      setAuthentication(true);
+      navigation.reset({index: 0, routes: [{name: 'Home' as never}]});
     }
 
     if (value.length === 6 && value !== '232323') {
