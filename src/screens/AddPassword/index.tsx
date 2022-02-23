@@ -1,7 +1,7 @@
 import React, { useCallback, useState } from 'react';
 import { Ionicons } from '@expo/vector-icons';
 import { RouteProp, useNavigation, useRoute } from '@react-navigation/native';
-import { AddHeaderContainer, AddHeaderText, FormInput, HeaderBackButton, PasswordInput, PasswordInputContainer, SaveButton, SaveButtonText, Wrapper } from './styles';
+import { AddHeaderContainer, AddHeaderText, FormInput, HeaderBackButton, PasswordInput, PasswordInputContainer, SaveButton, SaveButtonText, SmallAlertText, Wrapper } from './styles';
 import { PasswordCardEyeButton } from '../../components/PasswordCard/styles';
 import { addAccount, updateAccount } from '../../store/accounts/actions';
 import { IAccounts } from '../../interfaces/IAccounts';
@@ -22,6 +22,9 @@ const AddPassword: React.FC = () => {
   const [user, setUser] = useState('');
   const [service, setService] = useState('');
   const [password, setPassword] = useState('');
+  const [userError, setUserError] = useState(false);
+  const [serviceError, setServiceError] = useState(false);
+  const [passwordError, setPasswordError] = useState(false);
 
   useEffect(() => {
     if (!!route.params && !!route.params.account.id) {
@@ -37,6 +40,30 @@ const AddPassword: React.FC = () => {
   }, []);
 
   const saveButton = () => {
+    let error = false;
+    if (service === '') {
+      setServiceError(true);
+      error = true;
+    } else {
+      setServiceError(false);
+    }
+
+    if (user === '') {
+      setUserError(true);
+      error = true;
+    } else {
+      setUserError(false);
+    }
+
+    if (password === '') {
+      setPasswordError(true);
+      error = true;
+    } else {
+      setPasswordError(false);
+    }
+
+    if (error) return;
+
     if (editing) {
       updateAccount({
         id: route.params.account.id,
@@ -67,16 +94,19 @@ const AddPassword: React.FC = () => {
         </AddHeaderText>
       </AddHeaderContainer>
 
-      <FormInput placeholder='Service' value={service} onChangeText={newText => setService(newText)}/>
+      <FormInput placeholder='Service' value={service} onChangeText={newText => setService(newText)} error={serviceError} />
+      {serviceError && <SmallAlertText>Required</SmallAlertText>}
 
-      <FormInput placeholder='Email / User' value={user} onChangeText={newText => setUser(newText)} />
+      <FormInput placeholder='Email / User' value={user} onChangeText={newText => setUser(newText)} error={userError} />
+      {userError && <SmallAlertText>Required</SmallAlertText>}
 
-      <PasswordInputContainer>
+      <PasswordInputContainer error={passwordError}>
         <PasswordInput placeholder='Password' value={password} secureTextEntry={!showPassword} onChangeText={newText => setPassword(newText)} />
         {!showPassword 
         ? <PasswordCardEyeButton activeOpacity={0.3} onPress={() => setShowPassword(showPassword => !showPassword)}><Ionicons name="ios-eye-off-sharp" size={20} color="black"/></PasswordCardEyeButton>
         : <PasswordCardEyeButton activeOpacity={0.3} onPress={() => setShowPassword(showPassword => !showPassword)}><Ionicons name="ios-eye" size={20} color="black"/></PasswordCardEyeButton>}
       </PasswordInputContainer>
+      {passwordError && <SmallAlertText>Required</SmallAlertText>}
 
       <SaveButton underlayColor="#4C656E" activeOpacity={0.9} onPress={saveButton}>
         <SaveButtonText>

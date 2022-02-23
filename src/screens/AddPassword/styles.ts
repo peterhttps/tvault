@@ -24,15 +24,24 @@ export const AddHeaderText = styled.Text`
   margin-left: 8px;
 `;
 
-export const FormInput = styled.TextInput`
+export const FormInput = styled.TextInput<{ error?: boolean }>`
   background: #F8F7FB;
   border-radius: 5px;
   font-size: 16px;
   padding: 8px 16px;
   margin-top: 16px;
+
+  border: ${ props => props.error ? '1px solid red' : 'white' };
 `;
 
-export const PasswordInputContainer = styled.View`
+export const SmallAlertText = styled.Text`
+  font-size: 12px;
+  margin-top: 2px;
+  margin-left: 8px;
+  color: red;
+`;
+
+export const PasswordInputContainer = styled.View<{ error?: boolean }>`
   background: #F8F7FB;
   border-radius: 5px;
   margin-top: 16px;
@@ -40,6 +49,8 @@ export const PasswordInputContainer = styled.View`
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
+
+  border: ${ props => props.error ? '1px solid red' : 'white' };
 `;
 
 export const PasswordInput = styled.TextInput`
