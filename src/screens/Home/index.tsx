@@ -3,7 +3,7 @@ import { StatusBar } from 'expo-status-bar';
 import { Ionicons } from '@expo/vector-icons'; 
 import AddButton from '../../components/AddButton';
 import PasswordCard from '../../components/PasswordCard';
-import { Container, HomeHeader, HomeTitle, SearchContainer, SearchInput, Wrapper } from './styles';
+import { Container, HomeHeader, HomeTitle, SearchContainer, SearchInput, Wrapper, EmptyMessage } from './styles';
 import { useAccounts } from '../../hooks/useAccounts';
 import { useEffect } from 'react';
 import { IAccounts } from '../../interfaces/IAccounts';
@@ -18,7 +18,7 @@ export default function Home() {
   const { accounts } = useAccounts();
   const [accountsFiltered, setAccountsFiltered] = useState<IAccounts[]>();
   const [searchInput, setSearchInput] = useState('');
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
 
   const getStoragePasslock = useCallback(async () => {
     const passlock = await getPasslockStorage();
@@ -68,7 +68,12 @@ export default function Home() {
             <PasswordCard key={item.id} id={item.id} service={item.service} user={item.user} password={item.password} />
           )
         })}
+          {accounts.length === 0 &&
+        
+        <EmptyMessage>It looks like you haven't added any accounts yet, hit the + button to add one</EmptyMessage>}
       </Container>
+
+    
  
       <AddButton/>
       <StatusBar style="auto" />

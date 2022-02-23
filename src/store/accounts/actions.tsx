@@ -32,7 +32,7 @@ export const addAccount = (account: IAccounts | null) =>
   AccountsStore.update(s => {
     if (!!account) {
       account.id = uuid.v4() + Date.now().toString();
-      account.password = CryptoJS.AES.encrypt(account.password, 'test');
+      account.password = CryptoJS.AES.encrypt(account.password, 'test').toString();
       s.accounts.push(account)
     };
     setAccountsStorage(s.accounts);

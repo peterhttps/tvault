@@ -38,3 +38,11 @@ export const SearchInput = styled.TextInput`
   padding: 8px 8px;
   width: 85%;
 `;
+
+export const EmptyMessage = styled.Text`
+  font-size: 16px;
+  width: 85%;
+  margin: 32px auto;
+  text-align: center;
+  color: #AEAEAE;
+`;
